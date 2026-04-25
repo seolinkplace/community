@@ -1,0 +1,7 @@
+{
+    "Core": true,
+    "Sites": true,
+    "Blog": true,
+    "Support": true,
+    "Auth": true
+}

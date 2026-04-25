@@ -1,0 +1,17 @@
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void {
+        Schema::table('sites', function (Blueprint $table) {
+            $table->json('link_block_settings')->nullable()->after('verified_at');
+        });
+    }
+    public function down(): void {
+        Schema::table('sites', function (Blueprint $table) {
+            $table->dropColumn('link_block_settings');
+        });
+    }
+};

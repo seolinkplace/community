@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'title'                  => 'Subscription Plan',
+    'current_plan'           => 'Current Plan',
+    'choose_plan'            => 'Choose Plan',
+    'change_plan'            => 'Change Plan',
+    'cancel'                 => 'Cancel Subscription',
+    'cancelled'              => 'Subscription cancelled',
+    'per_month'              => '/mo',
+    'free'                   => 'Free',
+    'active'                 => 'Active',
+    'grace'                  => 'Grace Period',
+    'expired'                => 'Expired',
+    'expires_at'             => 'Valid until',
+    'days_left'              => 'Days left: :days',
+    'grace_warning'          => 'Insufficient balance to renew subscription. Please top up within :days day(s).',
+    'insufficient_balance'   => 'Insufficient balance to activate this plan.',
+    'subscriptions_disabled' => 'Subscription plans are temporarily unavailable.',
+    'confirm_subscribe'      => 'Activate plan ":plan" for $:price/mo?',
+    'confirm_cancel'         => 'Cancel subscription? Access will remain until the end of the paid period.',
+    'subscribed'             => 'Plan ":plan" activated.',
+    'features'               => [
+        'freeze_disabled'           => 'No earnings freeze',
+        'withdrawal_commission_pct' => 'Withdrawal commission: :value%',
+        'priority_listing'          => 'Priority listing',
+        'commission_pct'            => 'Platform commission: :value%',
+        'direct_payments'           => 'Direct payments to webmasters',
+        'workspace'                 => 'Private workspace',
+    ],
+];

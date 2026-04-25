@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'title'                  => 'Тарифний план',
+    'current_plan'           => 'Поточний план',
+    'choose_plan'            => 'Обрати план',
+    'change_plan'            => 'Змінити план',
+    'cancel'                 => 'Скасувати підписку',
+    'cancelled'              => 'Підписку скасовано',
+    'per_month'              => '/міс',
+    'free'                   => 'Безкоштовно',
+    'active'                 => 'Активна',
+    'grace'                  => 'Пільговий період',
+    'expired'                => 'Закінчилась',
+    'expires_at'             => 'Діє до',
+    'days_left'              => 'Залишилось днів: :days',
+    'grace_warning'          => 'Недостатньо коштів для продовження підписки. Поповніть баланс протягом :days дн.',
+    'insufficient_balance'   => 'Недостатньо коштів на балансі для підключення цього плану.',
+    'subscriptions_disabled' => 'Тарифні плани тимчасово недоступні.',
+    'confirm_subscribe'      => 'Підключити план ":plan" за $:price/міс?',
+    'confirm_cancel'         => 'Скасувати підписку? Доступ збережеться до кінця оплаченого періоду.',
+    'subscribed'             => 'План ":plan" підключено.',
+    'features'               => [
+        'freeze_disabled'           => 'Без заморожування коштів',
+        'withdrawal_commission_pct' => 'Комісія на виведення: :value%',
+        'priority_listing'          => 'Пріоритет у каталозі',
+        'commission_pct'            => 'Комісія платформи: :value%',
+        'direct_payments'           => 'Прямі платежі вебмастерам',
+        'workspace'                 => 'Приватний workspace',
+    ],
+];

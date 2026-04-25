@@ -1,0 +1,11 @@
+{
+    "name": "Sites",
+    "alias": "sites",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Sites\\Providers\\SitesServiceProvider"
+    ],
+    "files": []
+}

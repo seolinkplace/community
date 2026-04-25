@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEOLinkPlace — Маркетплейс SEO-розміщень для вебмайстрів і бізнесу</title>
+    <meta name="description" content="SEOLinkPlace — платформа де вебмайстри монетизують сайти, а бізнес отримує якісні SEO-посилання, onclick і статті. Прозоро. Автоматично. Ефективно.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://seolinkplace.com/">
+    <link rel="alternate" hreflang="uk" href="https://seolinkplace.com/">
+    <link rel="alternate" hreflang="en" href="https://seolinkplace.com/en/">
+    <link rel="alternate" hreflang="x-default" href="https://seolinkplace.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seolinkplace.com/">
+    <meta property="og:title" content="SEOLinkPlace — Маркетплейс SEO-розміщень">
+    <meta property="og:description" content="Платформа де вебмайстри монетизують сайти, а бізнес отримує якісні SEO-посилання та статті.">
+    <meta property="og:image" content="https://seolinkplace.com/images/og-home.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seolinkplace.com/images/og-home.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/landing.css') }}?v={{ filemtime(public_path('css/landing.css')) }}">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ6ZE1CCFQ"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YJ6ZE1CCFQ');</script>
+</head>
+<body>
+
+@include('components.nav-landing', ['locale' => 'uk', 'landing' => true])
+
+<section class="hero">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="hero-inner">
+        <div>
+            <div class="badge"><span class="badge-dot"></span>Маркетплейс SEO-розміщень</div>
+            <h1>Монетизуй сайт<br><span class="ac">Розміщуй</span> посилання<br><span class="ac2">Автоматично</span></h1>
+            <p class="hero-desc">SEOLinkPlace — платформа де вебмайстри заробляють на своїх сайтах, а бізнес отримує якісні SEO-посилання, onclick та статті без зайвого клопоту.</p>
+            <div class="hero-actions">
+                <a href="#apply" class="btn btn-primary">Подати заявку</a>
+                <a href="#how" class="btn btn-outline">Як це працює</a>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-body"><div class="stat-n">3</div><div class="stat-l">типи розміщень: посилання, onclick, статті</div></div>
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+            </div>
+            <div class="stat">
+                <div class="stat-body"><div class="stat-n">0%</div><div class="stat-l">комісії всередині платформи — береш все що заробив</div></div>
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            </div>
+            <div class="stat">
+                <div class="stat-body"><div class="stat-n">24/7</div><div class="stat-l">автоматичний контроль розміщень парсером</div></div>
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="how" class="section-alt">
+    <div class="container">
+        <div class="s-label">Як це працює</div>
+        <h2>Просто — Прозоро<br>Автоматично</h2>
+        <p class="s-desc">Весь процес від реєстрації до заробітку займає менше дня.</p>
+        <div class="grid3">
+            <div class="card fade-up"><div class="card-n">01</div><div class="card-t">Реєструєшся</div><div class="card-d">Вебмайстер додає сайт і виставляє ціни. Клієнт поповнює баланс і обирає сторінки з каталогу.</div></div>
+            <div class="card fade-up"><div class="card-n">02</div><div class="card-t">Розміщуєш</div><div class="card-d">Клієнт замовляє розміщення. Вебмайстер підтверджує. Система автоматично контролює і щоденно списує оплату.</div></div>
+            <div class="card fade-up"><div class="card-n">03</div><div class="card-t">Заробляєш</div><div class="card-d">Весь дохід від розміщень зараховується на баланс вебмайстра. Виводиш коли зручно — комісія тільки при виводі.</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="for-who">
+    <div class="container">
+        <div class="s-label">Для кого</div>
+        <h2>Дві ролі<br>Одна платформа</h2>
+        <p class="s-desc">Вебмайстри монетизують трафік. Бізнес отримує якісні посилання.</p>
+        <div class="grid2">
+            <div class="fw-card wm fade-up">
+                <div class="fw-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                <div class="fw-t">Вебмайстрам</div>
+                <div class="fw-d">Маєш сайт з трафіком? Монетизуй його через SEOLinkPlace — без прямих переговорів з клієнтами.</div>
+                <ul class="flist">
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Виставляєш ціни самостійно</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% доходу на баланс — комісія тільки при виводі</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Автоматичний контроль посилань 24/7</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Вивід коштів у крипті (USDT TRC20)</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Реферальна програма</li>
+                </ul>
+                <a href="#apply" class="btn btn-primary">Додати сайт</a>
+            </div>
+            <div class="fw-card biz fade-up">
+                <div class="fw-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                <div class="fw-t">Бізнесу</div>
+                <div class="fw-d">Потрібні якісні SEO-посилання, onclick або статті? Обирай зі списку перевірених сайтів.</div>
+                <ul class="flist">
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Каталог сайтів з цінами та фільтрами</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Три формати: посилання, onclick, статті</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Прозорий щоденний контроль якості</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Поповнення через USDT TRC20</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Індивідуальні ціни для постійних клієнтів</li>
+                </ul>
+                <a href="#apply" class="btn btn-pink">Розпочати</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-alt">
+    <div class="container">
+        <div class="s-label">Типи розміщень</div>
+        <h2>Три формати<br>Під будь-яке завдання</h2>
+        <p class="s-desc">Обирай формат що найкраще підходить для твоєї SEO-стратегії.</p>
+        <div class="grid3">
+            <div class="card fade-up"><div class="type-tag tag-link">LINK</div><div class="type-t">SEO-посилання</div><div class="type-d">Dofollow або nofollow посилання з анкором. Щоденна оплата поки посилання активне на сторінці.</div></div>
+            <div class="card fade-up"><div class="type-tag tag-onclick">ONCLICK</div><div class="type-t">Onclick-трафік</div><div class="type-d">JS-редирект на твій сайт при кліку на будь-який зовнішній лінк на сторінці вебмайстра.</div></div>
+            <div class="card fade-up"><div class="type-tag tag-article">ARTICLE</div><div class="type-t">Статті</div><div class="type-d">Публікація статті на сайті вебмайстра. Разова оплата або щоденна. Твій текст або від вебмайстра.</div></div>
+        </div>
+        <div class="pricing-note">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Комісія платформи знімається тільки при виводі коштів — жодних прихованих списань при розміщенні
+        </div>
+    </div>
+</section>
+
+
+<section id="tasks">
+    <div class="container">
+        <div class="s-label">Мікро-завдання</div>
+        <h2>Заробляй більше<br><span class="ac">Виконуй завдання</span></h2>
+        <p class="s-desc">Окрім SEO-розміщень, платформа має систему мікро-завдань — вебмайстри виконують реальні дії і отримують додаткову винагороду.</p>
+        <div class="grid2" style="margin-top:40px">
+            <div class="fw-card wm fade-up">
+                <div class="fw-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <div class="fw-t">Виконавцям</div>
+                <div class="fw-d">Виконуй завдання від рекламодавців і отримуй оплату на баланс платформи.</div>
+                <ul class="flist">
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Коментарі, лайки, голосування, поширення</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Вільний вибір завдань і термінів</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Миттєве нарахування після перевірки</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Підтвердження через скріншот або URL</li>
+                </ul>
+            </div>
+            <div class="fw-card biz fade-up">
+                <div class="fw-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/><path d="M17.5 3.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 7.5-7.5z"/></svg></div>
+                <div class="fw-t">Рекламодавцям</div>
+                <div class="fw-d">Створюй завдання і залучай реальних користувачів до взаємодії з твоїм контентом.</div>
+                <ul class="flist">
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Гнучке налаштування винагороди і бюджету</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Контроль якості — ти перевіряєш докази</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Обмеження по кількості і терміну</li>
+                    <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Бюджет резервується — без прихованих списань</li>
+                </ul>
+            </div>
+        </div>
+        <div class="pricing-note">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Реальні дії від реальних користувачів — жодної накрутки, тільки підтверджені виконання
+        </div>
+    </div>
+</section>
+
+<section class="cta-strip">
+    <div class="container">
+        <div class="cta-inner">
+            <div class="s-label">Долучайся</div>
+            <h2>Готовий розпочати</h2>
+            <p class="s-desc">Платформа зараз у закритому бета-тесті. Залиш заявку — ми зв'яжемось першими.</p>
+            <a href="#apply" class="btn btn-primary" style="font-size:15px;padding:13px 32px">Подати заявку</a>
+        </div>
+    </div>
+</section>
+
+<section class="form-section" id="apply">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+            <div>
+                <div class="s-label">Заявка</div>
+                <h2>Приєднатись<br>до бета-тесту</h2>
+                <p class="s-desc" style="margin-top:16px">Зараз ми відбираємо перших учасників. Заповни форму і ми зв'яжемось найближчим часом.</p>
+                <div class="info-items">
+                    <div class="info-item">
+                        <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                        <div class="info-text">Відповідаємо протягом 24 годин після заявки</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                        <div class="info-text">Дані захищені і не передаються третім особам</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                        <div class="info-text">Бета-тест безкоштовний — без зобов'язань</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-card fade-up">
+                <div class="form-t">Залишити заявку</div>
+                <div class="form-sub">Розкажи про себе — ми підберемо оптимальні умови.</div>
+                <form id="applyForm" action="/apply" method="POST">
+                    @csrf
+                    <div class="fg"><label>Ім'я або нік</label><input type="text" name="name" placeholder="Іван Петренко" required></div>
+                    <div class="fg"><label>Email</label><input type="email" name="email" placeholder="you@example.com" required></div>
+                    <div class="fg"><label>Хто ти?</label>
+                        <select name="role" required>
+                            <option value="">— Оберіть роль —</option>
+                            <option value="webmaster">Вебмайстер (маю сайт)</option>
+                            <option value="client">Клієнт (потрібні посилання)</option>
+                            <option value="both">Обидва</option>
+                        </select>
+                    </div>
+                    <div class="fg"><label>Сайт (якщо є)</label><input type="text" name="site" placeholder="https://example.com"></div>
+                    <div class="fg"><label>Коментар</label><textarea name="message" placeholder="Розкажи більше про свій проект..."></textarea></div>
+                    <div style="display:flex;justify-content:center;margin-bottom:16px">
+                        <div class="h-captcha" id="hcaptcha-apply" data-sitekey="{{ config('hcaptcha.sitekey') }}" data-theme="dark"></div>
+                    </div>
+                    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+                    <button type="submit" class="btn-sub">Надіслати заявку &rarr;</button>
+                    <div class="ok-msg" id="okMsg">Заявку отримано! Ми зв'яжемось найближчим часом.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <a href="/" class="logo">SEOLink<span>Place</span></a>
+    <p>&copy; 2011&ndash;{{ date('Y') }} SEOLinkPlace. Всі права захищені.</p>
+    <div class="footer-links"><a href="/contact">Контакти</a> · <a href="/en/">English</a></div>
+</footer>
+
+<script>
+(function(){var s=localStorage.getItem('sh-theme')||'dark';document.documentElement.setAttribute('data-theme',s);})();
+document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('sh-theme',n);
+});
+document.getElementById('navBurger').addEventListener('click',function(){
+    document.getElementById('navMobile').classList.toggle('open');
+});
+function closeMobile(){document.getElementById('navMobile').classList.remove('open');}
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*100);obs.unobserve(e.target);}});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el);});
+document.getElementById('applyForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=this.querySelector('.btn-sub');
+    btn.textContent='Надсилаємо...';btn.disabled=true;
+    try{
+        var res=await fetch('/apply',{method:'POST',headers:{'X-CSRF-TOKEN':document.querySelector('[name=_token]').value,'Accept':'application/json'},body:new FormData(this)});
+        if(res.ok){document.getElementById('okMsg').style.display='block';this.reset();btn.textContent='Надіслано!';}
+        else{btn.textContent='Помилка. Спробуйте ще.';btn.disabled=false;}
+    }catch(err){btn.textContent='Помилка. Спробуйте ще.';btn.disabled=false;}
+});
+</script>
+</body>
+</html>
