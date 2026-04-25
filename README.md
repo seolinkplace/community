@@ -130,7 +130,7 @@ The following modules are available as part of **SEOLinkPlace Enterprise Edition
 | Affiliate | Referral program with commission tracking |
 | Tasks | Performer task board with auto-approve |
 
-Contact [seolinkplace/contact](https://seolinkplace.com/contact) for licensing.
+Contact us via [GitHub Issues](https://github.com/seolinkplace/community/issues) for licensing inquiries.
 
 ## Documentation
 
