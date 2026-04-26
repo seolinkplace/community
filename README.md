@@ -130,7 +130,7 @@ The following modules are available as part of **SEOLinkPlace Enterprise Edition
 | Affiliate | Referral program with commission tracking |
 | Tasks | Performer task board with auto-approve |
 
-Contact us via [GitHub Issues](https://github.com/seolinkplace/community/issues) for licensing inquiries.
+Contact [seolinkplace/contact](https://seolinkplace.com/contact) for licensing.
 
 ## Documentation
 
@@ -147,3 +147,4 @@ MIT License — see [LICENSE](./LICENSE) for details.
 
 The Community Edition is free to use, modify, and distribute.
 Premium modules are proprietary and require a separate license.
+
