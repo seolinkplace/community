@@ -15,17 +15,16 @@ class PhpClientController extends Controller
         $token = $request->query('token');
         if (!$token) return null;
 
-        $cacheKey = "token_valid_obj:{$token}";
-        $cached = Cache::get($cacheKey);
+        $cacheKey = "token_valid:{$token}";
+        $cached   = Cache::get($cacheKey);
 
-        // Guard against stale serialized cache (incomplete class after deploy)
-        if ($cached !== null && !($cached instanceof TenantToken)) {
-            Cache::forget($cacheKey);
-            $cached = null;
-        }
-
-        if ($cached !== null) {
-            return $cached;
+        if (is_array($cached)) {
+            $model = new TenantToken($cached);
+            $model->exists = true;
+            if (!empty($cached['site'])) {
+                $model->setRelation('site', (new \App\Models\Site())->forceFill($cached['site']));
+            }
+            return $model;
         }
 
         $result = TenantToken::where('token', $token)
@@ -34,7 +33,7 @@ class PhpClientController extends Controller
             ->first();
 
         if ($result) {
-            Cache::put($cacheKey, $result, 300);
+            Cache::put($cacheKey, $result->toArray(), 300);
         }
 
         return $result;
@@ -76,8 +75,12 @@ class PhpClientController extends Controller
                 ]);
         });
 
-        // Оновлюємо last_used_at асинхронно
-        $tenantToken->update(['last_used_at' => now()]);
+        // Оновлюємо last_used_at асинхронно через queue
+        $tokenId = $tenantToken->id;
+        dispatch(function () use ($tokenId) {
+            \App\Models\TenantToken::where('id', $tokenId)
+                ->update(['last_used_at' => now()]);
+        })->afterResponse();
 
         $settings = $tenantToken->site->link_block_settings ?? null;
 

@@ -1,63 +1,59 @@
 <?php
+
 namespace Modules\Core\Helpers;
 
-use App\Models\Client;
-use App\Models\Webmaster;
 use Modules\Core\Models\UnifiedUser;
 
 class AuthHelper
 {
-    public static function client(): UnifiedUser|null
+    private static bool $resolved = false;
+    private static ?UnifiedUser $user = null;
+
+    private static function resolvedUser(): ?UnifiedUser
     {
-        if (auth('unified')->check()) {
-            $u = auth('unified')->user();
-            if ($u->hasRole('client') || $u->hasRole('performer')) {
-                return $u;
+        if (!self::$resolved) {
+            self::$resolved = true;
+            if (auth('unified')->check()) {
+                self::$user = auth('unified')->user()->loadMissing('roles');
             }
+        }
+
+        return self::$user;
+    }
+
+    public static function client(): ?UnifiedUser
+    {
+        $u = self::resolvedUser();
+        if ($u && ($u->hasRole('client') || $u->hasRole('performer'))) {
+            return $u;
         }
         return null;
     }
 
-    public static function webmaster(): UnifiedUser|null
+    public static function webmaster(): ?UnifiedUser
     {
-        if (auth('unified')->check() && auth('unified')->user()->hasRole('webmaster')) {
-            return auth('unified')->user();
-        }
-        return null;
+        $u = self::resolvedUser();
+        return ($u && $u->hasRole('webmaster')) ? $u : null;
+    }
+
+    public static function performer(): ?UnifiedUser
+    {
+        $u = self::resolvedUser();
+        return ($u && $u->hasRole('performer')) ? $u : null;
     }
 
     public static function clientId(): ?int
     {
-        if (auth('unified')->check()) {
-            $u = auth('unified')->user();
-            if ($u->hasRole('client') || $u->hasRole('performer')) {
-                return auth('unified')->id();
-            }
-        }
-        return null;
+        return self::client()?->id;
     }
 
     public static function webmasterId(): ?int
     {
-        if (auth('unified')->check() && auth('unified')->user()->hasRole('webmaster')) {
-            return auth('unified')->id();
-        }
-        return null;
-    }
-
-    public static function performer(): UnifiedUser|null
-    {
-        if (auth('unified')->check() && auth('unified')->user()->hasRole('performer')) {
-            return auth('unified')->user();
-        }
-        return null;
+        return self::webmaster()?->id;
     }
 
     public static function performerId(): ?int
     {
-        if (auth('unified')->check() && auth('unified')->user()->hasRole('performer')) {
-            return auth('unified')->id();
-        }
-        return null;
+        return self::performer()?->id;
     }
 }

@@ -18,7 +18,7 @@ class SiteVerificationController extends Controller
         }
 
         try {
-            $url      = 'https://' . $site->domain . '/' . strtolower(str_replace(' ', '-', config('app.name'))) . '-verify.txt';
+            $url      = 'https://' . $site->domain . '/seolinkplace-verify.txt';
             $response = Http::timeout(10)->get($url);
 
             if (!$response->successful()) {
@@ -26,7 +26,7 @@ class SiteVerificationController extends Controller
             }
 
             $content = trim($response->body());
-            $expected = strtolower(str_replace(' ', '-', config('app.name'))) . '-verification=' . $site->verification_token;
+            $expected = 'seolinkplace-verification=' . $site->verification_token;
 
             if (!str_contains($content, $expected)) {
                 return back()->with('error', __('client.verify_token_mismatch'));
@@ -52,7 +52,9 @@ class SiteVerificationController extends Controller
 
     private function authorizeSite(Site $site): void
     {
-        $webmaster = \App\Helpers\AuthHelper::webmaster();
-        if ($site->webmaster_id !== $webmaster->id) abort(403);
+        $userId = \App\Helpers\AuthHelper::webmasterId();
+        if ($site->user_id !== $userId && $site->webmaster_id !== $userId) {
+            abort(403);
+        }
     }
 }

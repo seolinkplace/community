@@ -17,7 +17,7 @@ class GoogleAuthController extends Controller
 {
     public function redirect()
     {
-        return Socialite::driver('google')->stateless()->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     public function redirectForLink()
@@ -27,11 +27,9 @@ class GoogleAuthController extends Controller
 
         $token = Str::random(40);
         Cache::store('redis')->put('gl_link:' . $token, $user->id, 300);
+        session(['google_link_token' => $token]);
 
-        return Socialite::driver('google')
-            ->stateless()
-            ->with(['state' => $token])
-            ->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     public function unlink()
@@ -45,7 +43,7 @@ class GoogleAuthController extends Controller
     public function callback(Request $request)
     {
         try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
+            $googleUser = Socialite::driver('google')->user();
         } catch (Throwable $e) {
             Log::error('GOOGLE ERROR: ' . $e->getMessage() . ' ' . $e->getTraceAsString());
             return redirect()->route('unified.login')
@@ -55,11 +53,11 @@ class GoogleAuthController extends Controller
         $googleId = $googleUser->getId();
         $email    = $googleUser->getEmail();
 
-        // Перевіряємо state — токен прив'язки
-        $state = $request->get('state', '');
+        // Перевіряємо токен прив'язки зі сесії
+        $linkToken  = session()->pull('google_link_token', '');
         $linkUserId = null;
-        if (strlen($state) === 40) {
-            $linkUserId = Cache::store('redis')->pull('gl_link:' . $state);
+        if (strlen($linkToken) === 40) {
+            $linkUserId = Cache::store('redis')->pull('gl_link:' . $linkToken);
         }
 
         if ($linkUserId) {

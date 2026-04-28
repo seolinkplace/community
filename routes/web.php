@@ -24,12 +24,14 @@ Route::prefix('app')->name('client.')->group(function () {
         Route::get('catalog/{site}',        [\Modules\Core\Http\Controllers\Client\CatalogController::class, 'show'])->name('catalog.show');
 
         // Support
-        Route::get('support',              [\Modules\Support\Http\Controllers\SupportTicketController::class, 'index'])->name('support.index');
-        Route::get('support/create',       [\Modules\Support\Http\Controllers\SupportTicketController::class, 'create'])->name('support.create');
-        Route::post('support',             [\Modules\Support\Http\Controllers\SupportTicketController::class, 'store'])->name('support.store');
-        Route::get('support/{id}',         [\Modules\Support\Http\Controllers\SupportTicketController::class, 'show'])->name('support.show');
-        Route::post('support/{id}/reply',  [\Modules\Support\Http\Controllers\SupportTicketController::class, 'reply'])->name('support.reply');
-        Route::post('support/{id}/close',  [\Modules\Support\Http\Controllers\SupportTicketController::class, 'close'])->name('support.close');
+        Route::prefix('support')->name('support.')->group(function () {
+            Route::get('/',           [\Modules\Support\Http\Controllers\SupportTicketController::class, 'index'])->name('index');
+            Route::get('create',      [\Modules\Support\Http\Controllers\SupportTicketController::class, 'create'])->name('create');
+            Route::post('/',          [\Modules\Support\Http\Controllers\SupportTicketController::class, 'store'])->name('store');
+            Route::get('{id}',        [\Modules\Support\Http\Controllers\SupportTicketController::class, 'show'])->name('show');
+            Route::post('{id}/reply', [\Modules\Support\Http\Controllers\SupportTicketController::class, 'reply'])->name('reply');
+            Route::post('{id}/close', [\Modules\Support\Http\Controllers\SupportTicketController::class, 'close'])->name('close');
+        });
     });
 });
 
@@ -49,12 +51,14 @@ Route::prefix('wm')->name('webmaster.')->group(function () {
         Route::post('sites/{site}/regenerate-token', [\Modules\Sites\Http\Controllers\Webmaster\SiteVerificationController::class, 'regenerateToken'])->name('sites.regenerate-token');
 
         // Support
-        Route::get('support',              [\Modules\Support\Http\Controllers\SupportTicketController::class, 'index'])->name('support.index');
-        Route::get('support/create',       [\Modules\Support\Http\Controllers\SupportTicketController::class, 'create'])->name('support.create');
-        Route::post('support',             [\Modules\Support\Http\Controllers\SupportTicketController::class, 'store'])->name('support.store');
-        Route::get('support/{id}',         [\Modules\Support\Http\Controllers\SupportTicketController::class, 'show'])->name('support.show');
-        Route::post('support/{id}/reply',  [\Modules\Support\Http\Controllers\SupportTicketController::class, 'reply'])->name('support.reply');
-        Route::post('support/{id}/close',  [\Modules\Support\Http\Controllers\SupportTicketController::class, 'close'])->name('support.close');
+        Route::prefix('support')->name('support.')->group(function () {
+            Route::get('/',           [\Modules\Support\Http\Controllers\SupportTicketController::class, 'index'])->name('index');
+            Route::get('create',      [\Modules\Support\Http\Controllers\SupportTicketController::class, 'create'])->name('create');
+            Route::post('/',          [\Modules\Support\Http\Controllers\SupportTicketController::class, 'store'])->name('store');
+            Route::get('{id}',        [\Modules\Support\Http\Controllers\SupportTicketController::class, 'show'])->name('show');
+            Route::post('{id}/reply', [\Modules\Support\Http\Controllers\SupportTicketController::class, 'reply'])->name('reply');
+            Route::post('{id}/close', [\Modules\Support\Http\Controllers\SupportTicketController::class, 'close'])->name('close');
+        });
     });
 });
 

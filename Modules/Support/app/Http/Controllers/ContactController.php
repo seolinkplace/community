@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ContactRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Modules\Core\Services\HcaptchaService;
 
 class ContactController extends Controller
 {
@@ -22,12 +23,7 @@ class ContactController extends Controller
             'h-captcha-response' => 'required',
         ]);
 
-        // hCaptcha verify
-        $hcapResponse = \Illuminate\Support\Facades\Http::asForm()->post('https://api.hcaptcha.com/siteverify', [
-            'secret'   => config('hcaptcha.secret'),
-            'response' => $request->input('h-captcha-response'),
-        ]);
-        if (!$hcapResponse->json('success')) {
+        if (!(new HcaptchaService())->verify($request->input('h-captcha-response'))) {
             return back()->withErrors(['captcha' => __('contact.err_captcha')])->withInput();
         }
 

@@ -22,25 +22,11 @@ Route::middleware('throttle:wp-api')->prefix('wp')->name('wp.')->group(function 
     Route::get('onclick-rules', [\Modules\Parser\Http\Controllers\Api\WpController::class, 'onclickRules'])->name('onclick-rules');
     Route::post('article-deleted', [\Modules\Parser\Http\Controllers\Api\WpController::class, 'articleDeleted'])->name('article-deleted');
     Route::post('orders/{id}/placed', [\Modules\Parser\Http\Controllers\Api\WpController::class, 'orderPlaced'])->name('orders.placed');
-    Route::post('sync',     function (\Illuminate\Http\Request $request) {
-        $token = $request->header('X-Seohands-Token') ?? $request->query('token');
-        $tenantToken = \App\Models\TenantToken::where('token', $token)
-            ->where('status', 'active')
-            ->where('wp_enabled', true)
-            ->first();
-
-        if (!$tenantToken) return response()->json(['error' => 'Invalid token'], 401);
-
-        $wpSite = \App\Models\WpSite::where('tenant_token_id', $tenantToken->id)->first();
-        if (!$wpSite) return response()->json(['error' => 'WP site not connected'], 404);
-
-        \App\Jobs\SyncWpPages::dispatch($wpSite);
-        return response()->json(['ok' => true, 'message' => 'Sync queued']);
-    })->name('sync');
+    Route::post('sync', [\Modules\Parser\Http\Controllers\Api\WpController::class, 'sync'])->name('sync');
 });
 
 // Parser API (internal — Go service)
-Route::prefix('parser')->name('parser.')->group(function () {
+Route::prefix('parser')->name('parser.')->middleware('parser.auth')->group(function () {
     Route::post('result', [\Modules\Parser\Http\Controllers\Api\ParserController::class, 'result'])->name('result');
     Route::get('job',    [\Modules\Parser\Http\Controllers\Api\ParserController::class, 'nextJob'])->name('job');
 });

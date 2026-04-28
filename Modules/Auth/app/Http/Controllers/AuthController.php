@@ -2,6 +2,7 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Core\Services\HcaptchaService;
 use Modules\Core\Models\UnifiedUser;
 use App\Models\ClientProfile;
 use App\Models\WebmasterProfile;
@@ -23,7 +24,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (!$this->verifyHcaptcha($request->input('h-captcha-response'))) {
+        if (!(new HcaptchaService())->verify($request->input('h-captcha-response'))) {
             return back()->withErrors(['email' => __('auth.captcha_failed')])->withInput();
         }
         if (!Auth::guard('unified')->attempt($credentials, $request->boolean('remember'))) {
@@ -58,7 +59,7 @@ class AuthController extends Controller
         if (!\App\Models\Setting::get('registration_enabled', true)) {
             return back()->withErrors(['email' => __('auth.registration_closed_error')]);
         }
-        if (!$this->verifyHcaptcha($request->input('h-captcha-response'))) {
+        if (!(new HcaptchaService())->verify($request->input('h-captcha-response'))) {
             return back()->withErrors(['email' => __('auth.captcha_failed')])->withInput();
         }
         $data = $request->validate([
@@ -126,14 +127,4 @@ class AuthController extends Controller
         return redirect()->route('unified.login');
     }
 
-    private function verifyHcaptcha(?string $token): bool
-    {
-        if (!$token) return false;
-        $response = \Illuminate\Support\Facades\Http::asForm()->post('https://api.hcaptcha.com/siteverify', [
-            'secret'   => config('hcaptcha.secret'),
-            'response' => $token,
-            'remoteip' => request()->ip(),
-        ]);
-        return $response->json('success') === true;
-    }
 }

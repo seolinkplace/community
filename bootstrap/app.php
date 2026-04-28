@@ -24,16 +24,18 @@ return Application::configure(basePath: dirname(__DIR__))
             'any_client'     => \Modules\Auth\Http\Middleware\EnsureAnyClientAuthenticated::class,
             'any_webmaster'  => \Modules\Auth\Http\Middleware\EnsureAnyWebmasterAuthenticated::class,
             'any_performer'  => \Modules\Auth\Http\Middleware\EnsurePerformerAuthenticated::class,
+            'parser.auth'    => \Modules\Parser\Http\Middleware\ParserAuth::class,
         ]);
+        $middleware->redirectGuestsTo(fn() => route('unified.login'));
         $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
-        $middleware->prepend(\App\Http\Middleware\DetectTenant::class);
+        $middleware->prepend(\Modules\Core\Http\Middleware\DetectTenant::class);
         $middleware->validateCsrfTokens(except: [
             '/payments/callback/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->report(function (\Throwable $e) {
-            $service = new \App\Services\ErrorReportService();
+            $service = new \Modules\Core\Services\ErrorReportService();
             if ($service->shouldReport($e)) {
                 $service->store($e, request());
             }
@@ -48,7 +50,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->view('errors.404', [], 404);
             }
             // Решта помилок — тільки якщо треба репортити
-            $service = new \App\Services\ErrorReportService();
+            $service = new \Modules\Core\Services\ErrorReportService();
             if ($service->shouldReport($e)) {
                 $uuid = optional(\App\Models\ErrorReport::where('exception_class', get_class($e))
                     ->where('url', $request->fullUrl())

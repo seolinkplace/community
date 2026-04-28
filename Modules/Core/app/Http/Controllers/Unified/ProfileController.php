@@ -4,6 +4,7 @@ namespace Modules\Core\Http\Controllers\Unified;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Core\Services\GdprDeletionService;
 
 class ProfileController extends Controller
 {
@@ -19,14 +20,7 @@ class ProfileController extends Controller
             return back()->withErrors(['password' => __('auth.wrong_password')]);
         }
 
-        $user->update([
-            'name'            => 'Deleted User',
-            'email'           => 'deleted_' . $user->id . '@deleted.invalid',
-            'password'        => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(32)),
-            'gdpr_deleted'    => true,
-            'gdpr_deleted_at' => now(),
-            'status'          => 'banned',
-        ]);
+        (new GdprDeletionService())->anonymize($user);
 
         auth('unified')->logout();
         $request->session()->invalidate();
@@ -53,30 +47,40 @@ class ProfileController extends Controller
         foreach ($roles as $r) $rows[] = [$r->role, $r->status, $r->created_at];
         $this->writeCsv($tmpDir . '/roles.csv', $rows);
 
-        $campaigns = $user->campaigns()->get(['id', 'name', 'status', 'created_at']);
-        $rows = [['id', 'name', 'status', 'created_at']];
-        foreach ($campaigns as $r) $rows[] = [$r->id, $r->name, $r->status, $r->created_at];
-        $this->writeCsv($tmpDir . '/campaigns.csv', $rows);
+        $this->writeCsvCursor(
+            $tmpDir . '/campaigns.csv',
+            ['id', 'name', 'status', 'created_at'],
+            $user->campaigns()->select(['id', 'name', 'status', 'created_at'])->cursor(),
+            fn($r) => [$r->id, $r->name, $r->status, $r->created_at]
+        );
 
-        $orders = \App\Models\CampaignLink::whereHas('campaign', fn($q) => $q->where('user_id', $user->id))
-            ->get(['id', 'campaign_id', 'site_id', 'placement_type', 'status', 'price_per_day', 'started_at', 'created_at']);
-        $rows = [['id', 'campaign_id', 'site_id', 'placement_type', 'status', 'price_per_day', 'started_at', 'created_at']];
-        foreach ($orders as $r) $rows[] = [$r->id, $r->campaign_id, $r->site_id, $r->placement_type, $r->status, $r->price_per_day, $r->started_at, $r->created_at];
-        $this->writeCsv($tmpDir . '/orders.csv', $rows);
+        $this->writeCsvCursor(
+            $tmpDir . '/orders.csv',
+            ['id', 'campaign_id', 'site_id', 'placement_type', 'status', 'price_per_day', 'started_at', 'created_at'],
+            \App\Models\CampaignLink::whereHas('campaign', fn($q) => $q->where('user_id', $user->id))
+                ->select(['id', 'campaign_id', 'site_id', 'placement_type', 'status', 'price_per_day', 'started_at', 'created_at'])
+                ->cursor(),
+            fn($r) => [$r->id, $r->campaign_id, $r->site_id, $r->placement_type, $r->status, $r->price_per_day, $r->started_at, $r->created_at]
+        );
 
         $wallet = $user->wallet;
         if ($wallet) {
-            $txs = \App\Models\WalletTransaction::where('wallet_id', $wallet->id)
-                ->get(['id', 'amount', 'balance_after', 'type', 'description', 'created_at']);
-            $rows = [['id', 'amount', 'balance_after', 'type', 'description', 'created_at']];
-            foreach ($txs as $r) $rows[] = [$r->id, $r->amount, $r->balance_after, $r->type, $r->description, $r->created_at];
-            $this->writeCsv($tmpDir . '/wallet_transactions.csv', $rows);
+            $this->writeCsvCursor(
+                $tmpDir . '/wallet_transactions.csv',
+                ['id', 'amount', 'balance_after', 'type', 'description', 'created_at'],
+                \App\Models\WalletTransaction::where('wallet_id', $wallet->id)
+                    ->select(['id', 'amount', 'balance_after', 'type', 'description', 'created_at'])
+                    ->cursor(),
+                fn($r) => [$r->id, $r->amount, $r->balance_after, $r->type, $r->description, $r->created_at]
+            );
         }
 
-        $articles = $user->articles()->get(['id', 'site_id', 'title', 'status', 'created_at']);
-        $rows = [['id', 'site_id', 'title', 'status', 'created_at']];
-        foreach ($articles as $r) $rows[] = [$r->id, $r->site_id, $r->title, $r->status, $r->created_at];
-        $this->writeCsv($tmpDir . '/articles.csv', $rows);
+        $this->writeCsvCursor(
+            $tmpDir . '/articles.csv',
+            ['id', 'site_id', 'title', 'status', 'created_at'],
+            $user->articles()->select(['id', 'site_id', 'title', 'status', 'created_at'])->cursor(),
+            fn($r) => [$r->id, $r->site_id, $r->title, $r->status, $r->created_at]
+        );
 
         $sites = $user->sites()->get(['id', 'domain', 'platform_type', 'status', 'created_at']);
         if ($sites->isNotEmpty()) {
@@ -108,6 +112,17 @@ class ProfileController extends Controller
         $f = fopen($path, 'w');
         fprintf($f, chr(0xEF) . chr(0xBB) . chr(0xBF));
         foreach ($rows as $row) fputcsv($f, $row);
+        fclose($f);
+    }
+
+    private function writeCsvCursor(string $path, array $headers, iterable $cursor, callable $mapper): void
+    {
+        $f = fopen($path, 'w');
+        fprintf($f, chr(0xEF) . chr(0xBB) . chr(0xBF));
+        fputcsv($f, $headers);
+        foreach ($cursor as $row) {
+            fputcsv($f, $mapper($row));
+        }
         fclose($f);
     }
 }

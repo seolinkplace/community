@@ -12,16 +12,7 @@ class SupportTicketController extends Controller
 {
     private function currentUser()
     {
-        // Спочатку unified, потім client/webmaster guards
-        if ($user = Auth::guard('unified')->user()) return $user;
-
-        // Для client/webmaster — знаходимо unified user по email
-        foreach (['client', 'webmaster'] as $guard) {
-            if ($actor = Auth::guard($guard)->user()) {
-                return \App\Models\UnifiedUser::where('email', $actor->email)->first();
-            }
-        }
-        return null;
+        return Auth::guard('unified')->user();
     }
 
     private function currentRole(): string

@@ -3,17 +3,13 @@ namespace Modules\Core\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
+use Modules\Core\Services\HcaptchaService;
 class ApplyController extends Controller
 {
     public function store(Request $request)
     {
         $token = $request->input('h-captcha-response');
-        if (!$token || !Http::asForm()->post('https://api.hcaptcha.com/siteverify', [
-            'secret'   => config('hcaptcha.secret'),
-            'response' => $token,
-            'remoteip' => $request->ip(),
-        ])->json('success')) {
+        if (!(new HcaptchaService())->verify($token)) {
             return response()->json(['status' => 'error', 'message' => 'Captcha failed'], 422);
         }
         $data = $request->validate([

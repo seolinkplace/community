@@ -28,9 +28,6 @@ class CommissionHelper
         if ($commission <= 0) return;
         \Illuminate\Support\Facades\DB::table('seolinkplace_settings')
             ->where('key', 'system_balance')
-            ->update([
-                'value'      => \Illuminate\Support\Facades\DB::raw("value + {$commission}"),
-                'updated_at' => now(),
-            ]);
+            ->increment('value', $commission, ['updated_at' => now()]);
     }
 }

@@ -6,6 +6,8 @@ use App\Models\PlatformSetting;
 use Modules\Core\Models\SubscriptionPlan;
 use Modules\Core\Models\UnifiedUser;
 use Modules\Core\Models\UserSubscription;
+use Modules\Wallet\Models\Wallet;
+use Modules\Wallet\Models\WebmasterWallet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -167,13 +169,13 @@ class SubscriptionService
         $amount = (float) $plan->price_monthly;
 
         if ($role === 'webmaster') {
-            $wallet = WebmasterWallet::where('user_id', $user->id)->first();
+            $wallet = WebmasterWallet::where('user_id', $user->id)->lockForUpdate()->first();
             if (!$wallet || $wallet->balance < $amount) {
                 throw new \RuntimeException("Insufficient webmaster wallet balance");
             }
             $wallet->decrement('balance', $amount);
         } else {
-            $wallet = Wallet::where('user_id', $user->id)->first();
+            $wallet = Wallet::where('user_id', $user->id)->lockForUpdate()->first();
             if (!$wallet || $wallet->balance < $amount) {
                 throw new \RuntimeException("Insufficient client wallet balance");
             }
