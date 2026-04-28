@@ -80,4 +80,13 @@ return [
     'role_added'               => 'Рөл сәтті қосылды!',
     'add_role_title'           => 'Рөл қосу',
     'add_role_hint'            => 'Жаңа рөл қосу арқылы тіркелгі мүмкіндіктерін кеңейтіңіз.',
+    'verify_email_subject' => 'Электрондық поштаңызды растаңыз',
+    'verify_email_title' => 'Email растау',
+    'verify_email_greeting' => 'Сәлем, :name!',
+    'verify_email_body' => 'Электрондық пошта мекенжайыңызды растау үшін төмендегі түймені басыңыз. Сілтеме 60 минут бойы жарамды.',
+    'verify_email_button' => 'Email растау',
+    'verify_email_expires' => 'Бұл сілтеме 60 минуттан кейін жарамсыз болады.',
+    'verify_email_resend' => 'Растау хатын қайта жіберу',
+    'verify_email_resent' => 'Жаңа растау сілтемесі жіберілді.',
+    'verify_email_success' => 'Email сәтті расталды!',
 ];

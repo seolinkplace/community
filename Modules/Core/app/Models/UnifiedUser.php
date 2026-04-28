@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Core\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,9 +22,14 @@ use App\Models\WebmasterProfile;
 use App\Models\WebmasterWallet;
 use App\Models\WebmasterWithdrawal;
 
-class UnifiedUser extends Authenticatable
+class UnifiedUser extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new \Modules\Auth\Notifications\VerifyEmail());
+    }
 
     protected $table = 'unified_users';
 

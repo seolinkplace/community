@@ -80,4 +80,13 @@ return [
     'role_added'               => 'Rol başarıyla eklendi!',
     'add_role_title'           => 'Rol ekle',
     'add_role_hint'            => 'Yeni bir rol ekleyerek hesap özelliklerinizi genişletin.',
+    'verify_email_subject' => 'E-posta adresinizi doğrulayın',
+    'verify_email_title' => 'E-posta doğrula',
+    'verify_email_greeting' => 'Merhaba, :name!',
+    'verify_email_body' => 'E-posta adresinizi doğrulamak için aşağıdaki düğmeye tıklayın. Bağlantı 60 dakika geçerlidir.',
+    'verify_email_button' => 'E-postayı doğrula',
+    'verify_email_expires' => 'Bu bağlantı 60 dakika sonra sona erer.',
+    'verify_email_resend' => 'Doğrulama e-postasını yeniden gönder',
+    'verify_email_resent' => 'Yeni bir doğrulama bağlantısı gönderildi.',
+    'verify_email_success' => 'E-posta başarıyla doğrulandı!',
 ];

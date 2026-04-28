@@ -71,6 +71,9 @@ class GoogleAuthController extends Controller
                         ->with('error', __('auth.google_already_linked'));
                 }
                 $user->update(['google_id' => $googleId, 'google_email' => $email]);
+                if (!$user->hasVerifiedEmail()) {
+                    $user->markEmailAsVerified();
+                }
                 Auth::guard('unified')->login($user, true);
                 $route = $user->hasRole('webmaster') ? 'webmaster.profile.edit' : 'client.profile.edit';
                 return redirect()->route($route)
@@ -105,6 +108,7 @@ class GoogleAuthController extends Controller
                 'google_email' => $email,
                 'status'       => 'active',
             ]);
+            $user->markEmailAsVerified();
             Auth::guard('unified')->login($user, true);
             return redirect()->route('unified.google.role.select');
         }
@@ -114,6 +118,9 @@ class GoogleAuthController extends Controller
                 ->with('error', __('auth.account_banned'));
         }
 
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
         Auth::guard('unified')->login($user, true);
         return redirect()->route('unified.dashboard');
     }

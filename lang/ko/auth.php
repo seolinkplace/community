@@ -80,4 +80,13 @@ return [
     'role_added'               => '역할이 성공적으로 추가되었습니다!',
     'add_role_title'           => '역할 추가',
     'add_role_hint'            => '새 역할을 추가하여 계정 기능을 확장하세요.',
+    'verify_email_subject' => '이메일 주소를 인증하세요',
+    'verify_email_title' => '이메일 인증',
+    'verify_email_greeting' => '안녕하세요, :name님!',
+    'verify_email_body' => '아래 버튼을 클릭하여 이메일 주소를 인증하세요. 링크는 60분 동안 유효합니다.',
+    'verify_email_button' => '이메일 인증',
+    'verify_email_expires' => '이 링크는 60분 후에 만료됩니다.',
+    'verify_email_resend' => '인증 이메일 재전송',
+    'verify_email_resent' => '새 인증 링크가 전송되었습니다.',
+    'verify_email_success' => '이메일이 성공적으로 인증되었습니다!',
 ];

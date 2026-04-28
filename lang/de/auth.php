@@ -80,4 +80,13 @@ return [
     'role_added'               => 'Rolle erfolgreich hinzugefügt!',
     'add_role_title'           => 'Rolle hinzufügen',
     'add_role_hint'            => 'Erweitern Sie Ihre Kontofunktionen durch Hinzufügen einer neuen Rolle.',
+    'verify_email_subject' => 'E-Mail-Adresse bestätigen',
+    'verify_email_title' => 'E-Mail bestätigen',
+    'verify_email_greeting' => 'Hallo, :name!',
+    'verify_email_body' => 'Klicken Sie auf die Schaltfläche unten, um Ihre E-Mail-Adresse zu bestätigen. Der Link ist 60 Minuten gültig.',
+    'verify_email_button' => 'E-Mail bestätigen',
+    'verify_email_expires' => 'Dieser Link läuft in 60 Minuten ab.',
+    'verify_email_resend' => 'Bestätigungs-E-Mail erneut senden',
+    'verify_email_resent' => 'Ein neuer Bestätigungslink wurde gesendet.',
+    'verify_email_success' => 'E-Mail erfolgreich bestätigt!',
 ];

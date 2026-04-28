@@ -80,4 +80,13 @@ return [
     'role_added'               => '¡Rol añadido exitosamente!',
     'add_role_title'           => 'Añadir rol',
     'add_role_hint'            => 'Amplía las capacidades de tu cuenta añadiendo un nuevo rol.',
+    'verify_email_subject' => 'Verifica tu dirección de correo',
+    'verify_email_title' => 'Verificar email',
+    'verify_email_greeting' => '¡Hola, :name!',
+    'verify_email_body' => 'Haz clic en el botón de abajo para verificar tu dirección de correo. El enlace es válido por 60 minutos.',
+    'verify_email_button' => 'Verificar email',
+    'verify_email_expires' => 'Este enlace expira en 60 minutos.',
+    'verify_email_resend' => 'Reenviar correo de verificación',
+    'verify_email_resent' => 'Se ha enviado un nuevo enlace de verificación.',
+    'verify_email_success' => '¡Email verificado con éxito!',
 ];

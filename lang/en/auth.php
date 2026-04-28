@@ -80,5 +80,14 @@ return [
     'role_already_exists' => 'This role already exists in your account.',
     'role_added' => 'Role added successfully!',
     'add_role_title' => 'Add Role',
-    'add_role_hint' => 'Expand your account capabilities by adding a new role.'
+    'add_role_hint' => 'Expand your account capabilities by adding a new role.',
+    'verify_email_subject' => 'Verify your email address',
+    'verify_email_title' => 'Verify email',
+    'verify_email_greeting' => 'Hello, :name!',
+    'verify_email_body' => 'Click the button below to verify your email address. The link is valid for 60 minutes.',
+    'verify_email_button' => 'Verify email',
+    'verify_email_expires' => 'This link expires in 60 minutes.',
+    'verify_email_resend' => 'Resend verification email',
+    'verify_email_resent' => 'A new verification link has been sent.',
+    'verify_email_success' => 'Email verified successfully!',
 ];

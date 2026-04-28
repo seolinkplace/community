@@ -114,9 +114,11 @@ class AuthController extends Controller
                 ->registerReferral($user, $data['ref_code'] ?? request('ref_code'));
         }
 
+        $user->sendEmailVerificationNotification();
+
         Auth::guard('unified')->login($user);
 
-        return redirect()->route('unified.dashboard');
+        return redirect()->route('unified.verification.notice');
     }
 
     public function logout(Request $request)

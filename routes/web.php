@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 // ─── Client Cabinet ───────────────────────────────────────────────────────────
 Route::prefix('app')->name('client.')->group(function () {
-    Route::middleware('any_client')->group(function () {
+    Route::middleware(['any_client', 'verified'])->group(function () {
         Route::post('logout',   [\Modules\Auth\Http\Controllers\AuthController::class, 'logout'])->name('logout');
         Route::get('dashboard', [\Modules\Core\Http\Controllers\Client\DashboardController::class, 'index'])->name('dashboard');
 
@@ -37,7 +37,7 @@ Route::prefix('app')->name('client.')->group(function () {
 
 // ─── Webmaster Cabinet ────────────────────────────────────────────────────────
 Route::prefix('wm')->name('webmaster.')->group(function () {
-    Route::middleware('any_webmaster')->group(function () {
+    Route::middleware(['any_webmaster', 'verified'])->group(function () {
         Route::post('logout',   [\Modules\Auth\Http\Controllers\AuthController::class, 'logout'])->name('logout');
         Route::get('dashboard', [\Modules\Core\Http\Controllers\Webmaster\DashboardController::class, 'index'])->name('dashboard');
 
@@ -71,7 +71,7 @@ Route::prefix('u')->name('unified.')->group(function () {
         Route::post('register', [\Modules\Auth\Http\Controllers\AuthController::class, 'register']);
     });
 
-    Route::middleware(['unified', 'check.banned'])->group(function () {
+    Route::middleware(['unified', 'check.banned', 'verified'])->group(function () {
         Route::post('add-role',     [\Modules\Auth\Http\Controllers\AddRoleController::class, 'store'])->name('add.role');
         Route::get('google/select-role',  [\Modules\Core\Http\Controllers\Unified\GoogleRoleController::class, 'show'])->name('google.role.select');
         Route::post('google/select-role', [\Modules\Core\Http\Controllers\Unified\GoogleRoleController::class, 'store'])->name('google.role.store');
@@ -79,6 +79,11 @@ Route::prefix('u')->name('unified.')->group(function () {
         Route::get('export-data',   [\Modules\Core\Http\Controllers\Unified\ProfileController::class, 'exportData'])->name('export.data');
         Route::get('/',             [\Modules\Core\Http\Controllers\Unified\DashboardController::class, 'index'])->name('dashboard');
         Route::delete('account',    [\Modules\Core\Http\Controllers\Unified\ProfileController::class, 'deleteAccount'])->name('account.delete');
+
+        // Email verification
+        Route::get('email/verify', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'notice'])->name('verification.notice');
+        Route::get('email/verify/{id}/{hash}', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware(['signed', 'throttle:6,1']);
+        Route::post('email/verification-notification', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'resend'])->name('verification.resend')->middleware('throttle:6,1');
 
         Route::get('banned',  [\Modules\Core\Http\Controllers\Unified\UserAppealController::class, 'banned'])->name('banned')->withoutMiddleware('check.banned');
         Route::post('appeal', [\Modules\Core\Http\Controllers\Unified\UserAppealController::class, 'store'])->name('appeal.store')->withoutMiddleware('check.banned');

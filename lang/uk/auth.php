@@ -80,5 +80,14 @@ return [
     'role_already_exists' => 'Ця роль вже є у вашому акаунті.',
     'role_added' => 'Роль успішно додано!',
     'add_role_title' => 'Додати роль',
-    'add_role_hint' => 'Розширте можливості свого акаунту додавши нову роль.'
+    'add_role_hint' => 'Розширте можливості свого акаунту додавши нову роль.',
+    'verify_email_subject' => 'Підтвердіть вашу електронну адресу',
+    'verify_email_title' => 'Підтвердіть email',
+    'verify_email_greeting' => 'Привіт, :name!',
+    'verify_email_body' => 'Натисніть кнопку нижче, щоб підтвердити вашу електронну адресу. Посилання дійсне 60 хвилин.',
+    'verify_email_button' => 'Підтвердити email',
+    'verify_email_expires' => 'Посилання дійсне 60 хвилин.',
+    'verify_email_resend' => 'Надіслати повторно',
+    'verify_email_resent' => 'Лист з підтвердженням надіслано повторно.',
+    'verify_email_success' => 'Email успішно підтверджено!',
 ];

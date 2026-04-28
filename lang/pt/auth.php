@@ -80,4 +80,13 @@ return [
     'role_added'               => 'Papel adicionado com sucesso!',
     'add_role_title'           => 'Adicionar papel',
     'add_role_hint'            => 'Expanda as capacidades da sua conta adicionando um novo papel.',
+    'verify_email_subject' => 'Verifique seu endereço de e-mail',
+    'verify_email_title' => 'Verificar email',
+    'verify_email_greeting' => 'Olá, :name!',
+    'verify_email_body' => 'Clique no botão abaixo para verificar seu endereço de e-mail. O link é válido por 60 minutos.',
+    'verify_email_button' => 'Verificar email',
+    'verify_email_expires' => 'Este link expira em 60 minutos.',
+    'verify_email_resend' => 'Reenviar e-mail de verificação',
+    'verify_email_resent' => 'Um novo link de verificação foi enviado.',
+    'verify_email_success' => 'Email verificado com sucesso!',
 ];

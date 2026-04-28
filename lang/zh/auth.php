@@ -80,4 +80,13 @@ return [
     'role_added'               => '角色添加成功！',
     'add_role_title'           => '添加角色',
     'add_role_hint'            => '通过添加新角色来扩展您的账户功能。',
+    'verify_email_subject' => '验证您的电子邮件地址',
+    'verify_email_title' => '验证邮箱',
+    'verify_email_greeting' => '您好，:name！',
+    'verify_email_body' => '点击下方按钮验证您的电子邮件地址。链接有效期为60分钟。',
+    'verify_email_button' => '验证邮箱',
+    'verify_email_expires' => '此链接将在60分钟后过期。',
+    'verify_email_resend' => '重新发送验证邮件',
+    'verify_email_resent' => '新的验证链接已发送。',
+    'verify_email_success' => '邮箱验证成功！',
 ];

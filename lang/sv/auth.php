@@ -80,4 +80,13 @@ return [
     'role_added'               => 'Roll har lagts till!',
     'add_role_title'           => 'Lägg till roll',
     'add_role_hint'            => 'Utöka ditt kontos funktioner genom att lägga till en ny roll.',
+    'verify_email_subject' => 'Verifiera din e-postadress',
+    'verify_email_title' => 'Verifiera e-post',
+    'verify_email_greeting' => 'Hej, :name!',
+    'verify_email_body' => 'Klicka på knappen nedan för att verifiera din e-postadress. Länken är giltig i 60 minuter.',
+    'verify_email_button' => 'Verifiera e-post',
+    'verify_email_expires' => 'Denna länk går ut om 60 minuter.',
+    'verify_email_resend' => 'Skicka verifieringsmail igen',
+    'verify_email_resent' => 'En ny verifieringslänk har skickats.',
+    'verify_email_success' => 'E-post verifierad!',
 ];
