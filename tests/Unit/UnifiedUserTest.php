@@ -13,6 +13,12 @@ class UnifiedUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        AuthHelper::reset();
+    }
+
     private function makeUser(array $attrs = []): UnifiedUser
     {
         return UnifiedUser::create(array_merge([

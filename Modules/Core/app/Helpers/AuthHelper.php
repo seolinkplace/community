@@ -9,6 +9,12 @@ class AuthHelper
     private static bool $resolved = false;
     private static ?UnifiedUser $user = null;
 
+    public static function reset(): void
+    {
+        self::$resolved = false;
+        self::$user     = null;
+    }
+
     private static function resolvedUser(): ?UnifiedUser
     {
         if (!self::$resolved) {
