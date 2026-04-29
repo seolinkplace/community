@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'any_webmaster'  => \Modules\Auth\Http\Middleware\EnsureAnyWebmasterAuthenticated::class,
             'any_performer'  => \Modules\Auth\Http\Middleware\EnsurePerformerAuthenticated::class,
             'parser.auth'    => \Modules\Parser\Http\Middleware\ParserAuth::class,
-            'verified'       => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+            'verified'       => \Modules\Core\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
         $middleware->redirectGuestsTo(fn() => route('unified.login'));
         $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
