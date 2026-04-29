@@ -34,7 +34,7 @@
             <form method="POST" action="{{ route('unified.logout') }}" class="mt-4">
                 @csrf
                 <button type="submit" class="text-sm text-gray-500 hover:text-gray-700 underline">
-                    {{ __('auth.logout') }}
+                    {{ __('auth.btn_logout') }}
                 </button>
             </form>
         </div>
