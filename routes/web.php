@@ -81,9 +81,9 @@ Route::prefix('u')->name('unified.')->group(function () {
         Route::delete('account',    [\Modules\Core\Http\Controllers\Unified\ProfileController::class, 'deleteAccount'])->name('account.delete');
 
         // Email verification
-        Route::get('email/verify', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'notice'])->name('verification.notice');
-        Route::get('email/verify/{id}/{hash}', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware(['signed', 'throttle:6,1']);
-        Route::post('email/verification-notification', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'resend'])->name('verification.resend')->middleware('throttle:6,1');
+        Route::get('email/verify', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'notice'])->name('verification.notice')->withoutMiddleware('verified');
+        Route::get('email/verify/{id}/{hash}', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware(['signed', 'throttle:6,1'])->withoutMiddleware('verified');
+        Route::post('email/verification-notification', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'resend'])->name('verification.resend')->middleware('throttle:6,1')->withoutMiddleware('verified');
 
         Route::get('banned',  [\Modules\Core\Http\Controllers\Unified\UserAppealController::class, 'banned'])->name('banned')->withoutMiddleware('check.banned');
         Route::post('appeal', [\Modules\Core\Http\Controllers\Unified\UserAppealController::class, 'store'])->name('appeal.store')->withoutMiddleware('check.banned');
