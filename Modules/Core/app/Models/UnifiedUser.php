@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Modules\Core\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -64,6 +67,13 @@ class UnifiedUser extends Authenticatable implements MustVerifyEmail
 
     public function hasRole(string $role): bool
     {
+        if ($this->relationLoaded('roles')) {
+            return $this->roles
+                ->where('role', $role)
+                ->where('status', 'active')
+                ->isNotEmpty();
+        }
+
         return $this->roles()
             ->where('role', $role)
             ->where('status', 'active')

@@ -121,7 +121,7 @@ Route::get('/lang/{locale}', function (string $locale) {
             $user->update(['locale' => $locale]);
         }
     }
-    return redirect()->back();
+    return redirect(url()->previous('/'));
 })->name('lang.switch');
 
 // ─── Blog ─────────────────────────────────────────────────────────────────────

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Core\Services;
 
 use Illuminate\Support\Facades\DB;
@@ -56,7 +58,7 @@ class GdprDeletionService
                 ->update(['subject' => DB::raw("CONCAT('deleted_', id)"), 'description' => '']);
 
             DB::table('support_ticket_messages')
-                ->where('user_id', $userId)
+                ->where('sender_id', $userId)
                 ->update(['message' => '']);
 
             // Chat повідомлення

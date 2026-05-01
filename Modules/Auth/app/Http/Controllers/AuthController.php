@@ -1,17 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Core\Services\HcaptchaService;
-use Modules\Core\Models\UnifiedUser;
 use App\Models\ClientProfile;
 use App\Models\WebmasterProfile;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Modules\Core\Models\UnifiedUser;
+use Modules\Core\Services\HcaptchaService;
 
 class AuthController extends Controller
 {
+    public function __construct(private readonly HcaptchaService $hcaptcha) {}
+
     public function showLogin()
     {
         return view('unified.auth.login');
@@ -20,11 +26,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email',
+            'email'    => 'required|email:rfc',
             'password' => 'required',
         ]);
 
-        if (!(new HcaptchaService())->verify($request->input('h-captcha-response'))) {
+        if (!$this->hcaptcha->verify($request->input('h-captcha-response'))) {
             return back()->withErrors(['email' => __('auth.captcha_failed')])->withInput();
         }
         if (!Auth::guard('unified')->attempt($credentials, $request->boolean('remember'))) {
@@ -64,7 +70,7 @@ class AuthController extends Controller
         }
         $data = $request->validate([
             'name'         => 'required|string|max:255',
-            'email'        => 'required|email',
+            'email'        => 'required|email:rfc',
             'password'     => 'required|min:8|confirmed',
             'role'         => 'required|in:client,webmaster,performer',
             'ref_code'     => 'nullable|string|max:20',
@@ -83,14 +89,18 @@ class AuthController extends Controller
             }
         }
 
-        $user = UnifiedUser::create([
-            'name'           => $data['name'],
-            'email'          => $data['email'],
-            'password'       => Hash::make($data['password']),
-            'status'         => 'active',
-            'gdpr_consent_at' => now(),
-            'gdpr_consent_ip' => $request->ip(),
-        ]);
+        try {
+            $user = UnifiedUser::create([
+                'name'            => $data['name'],
+                'email'           => $data['email'],
+                'password'        => Hash::make($data['password']),
+                'status'          => 'active',
+                'gdpr_consent_at' => now(),
+                'gdpr_consent_ip' => $request->ip(),
+            ]);
+        } catch (UniqueConstraintViolationException) {
+            return back()->withErrors(['email' => __('validation.unique', ['attribute' => 'email'])])->withInput();
+        }
 
         $user->addRole($data['role']);
 
@@ -109,9 +119,9 @@ class AuthController extends Controller
         }
 
         // Реєструємо реферала якщо є код
-        if (!empty($data['ref_code'] ?? request('ref_code'))) {
+        if (!empty($data['ref_code'])) {
             app(\App\Services\AffiliateService::class)
-                ->registerReferral($user, $data['ref_code'] ?? request('ref_code'));
+                ->registerReferral($user, $data['ref_code']);
         }
 
         $user->sendEmailVerificationNotification();

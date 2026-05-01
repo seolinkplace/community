@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Core\Services;
 
 use App\Models\PlatformSetting;
@@ -126,15 +128,15 @@ class SubscriptionService
             return;
         }
 
-        $due = UserSubscription::where('status', 'active')
+        UserSubscription::where('status', 'active')
             ->where('expires_at', '<=', now()->addDay()) // 1 день наперед
             ->whereHas('plan', fn($q) => $q->where('price_monthly', '>', 0))
             ->with(['user', 'plan'])
-            ->get();
-
-        foreach ($due as $subscription) {
-            $this->chargeSubscription($subscription);
-        }
+            ->chunk(100, function ($subscriptions) {
+                foreach ($subscriptions as $subscription) {
+                    $this->chargeSubscription($subscription);
+                }
+            });
     }
 
     private function chargeSubscription(UserSubscription $subscription): void
