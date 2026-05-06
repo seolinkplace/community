@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Support\Http\Controllers;
 use App\Http\Controllers\Controller;
 
@@ -48,7 +50,7 @@ class SupportTicketController extends Controller
         $request->validate([
             'subject' => 'required|string|max:255',
             'message' => 'required|string|max:5000',
-            'priority' => 'in:low,normal,high',
+            'priority' => 'required|in:low,normal,high',
         ]);
 
         $user = $this->currentUser();

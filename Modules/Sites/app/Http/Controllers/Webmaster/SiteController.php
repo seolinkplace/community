@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Sites\Http\Controllers\Webmaster;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +10,7 @@ use App\Models\CampaignLink;
 use Modules\Core\Helpers\AuthHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
@@ -33,7 +36,7 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'domain'       => 'required|string|max:255',
+            'domain'       => ['required', 'string', 'max:255', 'regex:/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/'],
             'niche'        => 'nullable|string|max:255',
             'language'     => 'nullable|string|max:100',
             'content_type' => 'required|in:article,link_insert,both',
@@ -48,16 +51,20 @@ class SiteController extends Controller
         $data['webmaster_id'] = $unifiedId ? null : \App\Helpers\AuthHelper::webmasterId();
         $data['status'] = 'active';
 
-        $site = Site::create($data);
+        $site = DB::transaction(function () use ($data, $unifiedId) {
+            $site = Site::create($data);
 
-        \App\Models\TenantToken::create([
-            'site_id'      => $site->id,
-            'webmaster_id' => $unifiedId ?? \App\Helpers\AuthHelper::webmasterId(),
-            'client_id'    => null,
-            'status'       => 'active',
-            'link_limit'   => 10,
-            'link_type'    => 'dofollow',
-        ]);
+            \App\Models\TenantToken::create([
+                'site_id'      => $site->id,
+                'webmaster_id' => $unifiedId ?? \App\Helpers\AuthHelper::webmasterId(),
+                'client_id'    => null,
+                'status'       => 'active',
+                'link_limit'   => 10,
+                'link_type'    => 'dofollow',
+            ]);
+
+            return $site;
+        });
 
         return redirect()->route('webmaster.sites.tokens.index', $site->id)
             ->with('success', __('client.site_added'));
@@ -80,7 +87,7 @@ class SiteController extends Controller
         $this->authorizeSite($site);
 
         $data = $request->validate([
-            'domain'       => 'required|string|max:255',
+            'domain'       => ['required', 'string', 'max:255', 'regex:/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/'],
             'niche'        => 'nullable|string|max:255',
             'language'     => 'nullable|string|max:100',
             'content_type' => 'required|in:article,link_insert,both',
@@ -116,7 +123,19 @@ class SiteController extends Controller
         $this->authorizeSite($site);
 
         $request->validate([
-            'first_post_url' => 'required|url|max:500',
+            'first_post_url' => [
+                'required',
+                'url',
+                'max:500',
+                function (string $attribute, mixed $value, \Closure $fail) use ($site) {
+                    $host = parse_url($value, PHP_URL_HOST);
+                    $host = $host ? preg_replace('/^www\./', '', strtolower($host)) : '';
+                    $domain = preg_replace('/^www\./', '', strtolower($site->domain));
+                    if ($host !== $domain) {
+                        $fail(__('validation.url_domain_mismatch'));
+                    }
+                },
+            ],
         ]);
 
         $site->update([
