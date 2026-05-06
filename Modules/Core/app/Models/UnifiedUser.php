@@ -42,6 +42,7 @@ class UnifiedUser extends Authenticatable implements MustVerifyEmail
         'gdpr_consent_at', 'gdpr_consent_ip', 'gdpr_deleted', 'gdpr_deleted_at',
         'banned_until', 'ban_reason', 'warning_count',
         'rules_agreed_at',
+        'onboarded_at',
     ];
 
     protected $hidden = ['password', 'remember_token'];

@@ -35,7 +35,8 @@ class VerifyEmailController extends Controller
             event(new \Illuminate\Auth\Events\Verified($user));
         }
 
-        return redirect()->route('unified.dashboard')
+        $route = $user->onboarded_at ? 'unified.dashboard' : 'unified.onboarding';
+        return redirect()->route($route)
             ->with('success', __('auth.verify_email_success'));
     }
 

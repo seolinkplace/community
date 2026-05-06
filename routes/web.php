@@ -85,6 +85,9 @@ Route::prefix('u')->name('unified.')->group(function () {
         Route::get('email/verify/{id}/{hash}', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware(['signed', 'throttle:6,1'])->withoutMiddleware('verified');
         Route::post('email/verification-notification', [\Modules\Auth\Http\Controllers\VerifyEmailController::class, 'resend'])->name('verification.resend')->middleware('throttle:6,1')->withoutMiddleware('verified');
 
+        Route::get('onboarding',        [\Modules\Core\Http\Controllers\Unified\OnboardingController::class, 'show'])->name('onboarding');
+        Route::post('onboarding/dismiss', [\Modules\Core\Http\Controllers\Unified\OnboardingController::class, 'dismiss'])->name('onboarding.dismiss');
+
         Route::get('banned',  [\Modules\Core\Http\Controllers\Unified\UserAppealController::class, 'banned'])->name('banned')->withoutMiddleware('check.banned');
         Route::post('appeal', [\Modules\Core\Http\Controllers\Unified\UserAppealController::class, 'store'])->name('appeal.store')->withoutMiddleware('check.banned');
 
