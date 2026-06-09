@@ -10,9 +10,13 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-13-red?style=flat-square&logo=laravel" alt="Laravel 13">
-  <img src="https://img.shields.io/badge/PHP-8.3-777BB4?style=flat-square&logo=php" alt="PHP 8.3">
+  <img src="https://img.shields.io/badge/PHP-8.4-777BB4?style=flat-square&logo=php" alt="PHP 8.4">
   <img src="https://img.shields.io/badge/Filament-5-f59e0b?style=flat-square" alt="Filament 5">
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT">
+</p>
+
+<p align="center">
+  <a href="./README.uk.md">🇺🇦 Читати українською</a>
 </p>
 
 ---
@@ -48,7 +52,7 @@ Modules/
 
 | Layer | Technology |
 |---|---|
-| Backend | Laravel 13, PHP 8.3 |
+| Backend | Laravel 13, PHP 8.4 |
 | Admin panel | Filament 5 |
 | Database | MariaDB 11+ / MySQL 8+ |
 | Cache / Sessions | Redis |
@@ -56,7 +60,7 @@ Modules/
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.4+
 - MariaDB 11+ or MySQL 8+
 - Redis
 - Composer 2
@@ -116,21 +120,62 @@ HCAPTCHA_SITE_KEY=your-site-key
 HCAPTCHA_SECRET_KEY=your-secret-key
 ```
 
-## Premium Modules
+---
 
-The following modules are available as part of **SEOLinkPlace Enterprise Edition**:
+## Commercial Modules
 
-| Module | Description |
-|---|---|
-| Campaigns | Campaign management, link placement, daily billing |
-| Wallet | Client & webmaster wallets, transactions |
-| Billing | Cryptomus, NOWPayments, USDT TRC20 payments |
-| Articles | Article ordering with approval flow |
-| Parser | Go microservice for automated link checking |
-| Affiliate | Referral program with commission tracking |
-| Tasks | Performer task board with auto-approve |
+The Community Edition is the open core. The following modules extend it into a full production marketplace.
 
-Contact [seolinkplace/contact](https://seolinkplace.com/contact) for licensing.
+| Module | Description | Price |
+|---|---|---|
+| **AiContent** | AI-powered content generation for webmasters. Prompt templates with dynamic variables, Gemini 2.5 Flash integration, scheduling, revision history with word-level diff. | **$149** |
+| **Billing** | Payment processing with Cryptomus, NOWPayments, and USDT TRC20 out of the box. Clean payment provider interface — any provider with an API (Stripe, PayPal, LiqPay, etc.) can be integrated. | **$129** |
+| **Wallet** | Client, webmaster, and performer wallets. Transaction history, balance management, withdrawal system. | **$129** |
+| **Campaigns** | Client-side campaign management. Link placement orders, daily billing against wallet balance, campaign analytics. | **$99** |
+| **Articles** | Article ordering workflow between clients and webmasters. Client places an order, webmaster writes and submits, client approves. | **$89** |
+| **Parser** | Go microservice for automated link verification. Crawls target pages on schedule, detects link presence, suspends placements on repeated failures. | **$89** |
+| **Affiliate** | Referral program with commission tracking, referral links, and automated payouts to affiliate wallets. | **$69** |
+| **Tasks** | Performer task board. DB-driven task types, auto-approve logic, reward payouts on completion. | **$49** |
+
+### Full Bundle
+
+> **All 8 modules — $599** *(save $203 vs purchasing individually)*
+
+---
+
+## Why these prices?
+
+Building these modules from scratch with a hired developer costs approximately **$10,000–14,000**:
+
+| Module | Estimated hours | Cost @ $40/hr |
+|---|---|---|
+| AiContent | 60–80 hrs | $2,400–3,200 |
+| Billing + Wallet | 50–70 hrs | $2,000–2,800 |
+| Campaigns | 40–60 hrs | $1,600–2,400 |
+| Articles | 30–40 hrs | $1,200–1,600 |
+| Parser (Go) | 30–40 hrs | $1,200–1,600 |
+| Affiliate | 20–30 hrs | $800–1,200 |
+| Tasks | 15–20 hrs | $600–800 |
+| **Total** | **245–340 hrs** | **$9,800–13,600** |
+
+The full bundle at **$599** represents a ~95% discount against custom development cost.
+
+For comparison: a monthly subscription to a comparable hosted marketplace platform (Collaborator, Getfound, Miralinks) costs more than the full bundle — and you don't own the code.
+
+---
+
+## Installation & Setup Service
+
+Prefer to have everything set up for you? We offer a professional deployment service:
+
+| Service | Includes | Price |
+|---|---|---|
+| **Community Edition setup** | VPS configuration, Nginx + PHP-FPM + Redis, SSL, deployment, `.env` configuration, first admin user, smoke testing | **$799** |
+| **Enterprise setup** | Everything above + all commercial modules, queue worker (Supervisor), Go parser deployment, payment provider configuration | **$1,499** |
+
+Contact via [seolinkplace.com/contact](https://seolinkplace.com/contact).
+
+---
 
 ## Documentation
 
@@ -146,5 +191,4 @@ Contact [seolinkplace/contact](https://seolinkplace.com/contact) for licensing.
 MIT License — see [LICENSE](./LICENSE) for details.
 
 The Community Edition is free to use, modify, and distribute.
-Premium modules are proprietary and require a separate license.
-
+Commercial modules are proprietary and require a separate license.
